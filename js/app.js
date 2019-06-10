@@ -25,6 +25,13 @@ function shuffle(array) {
     return array;
 }
 
+const allCards = document.querySelectorAll('.card');
+    allCards.forEach(function(card) {
+        card.addEventListener('click', function(e){
+            console.log(e);
+            card.classList.add('open', 'show');
+        })
+    });
 
 /*
  * set up the event listener for a card. If a card is clicked:
