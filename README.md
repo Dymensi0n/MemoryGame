@@ -34,9 +34,26 @@ let cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-
                     'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf',
                     'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
 
-                    //Generates the cards properties
+//This function generates adds the HTML element and class properties to each card.
 function generateCards(card){
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+}
+```
+
+This starts or initializes the new game function
+
+``` 
+function newGame(){
+    
+    let cardDeck = document.querySelector('.deck');
+    
+    //This shuffles the cards in the map using the shuffle function
+    let cardHTML = shuffle(cardList).map(function(card) {
+        return generateCards(card);
+
+    });
+    //This adds the the html information to the cardList
+    cardDeck.innerHTML = cardHTML.join('');
 }
 ```
 
