@@ -25,6 +25,7 @@ For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 2. Display the cards to they fit within a grid or table simulating a grid.
 3. 
 
+```
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -39,3 +40,4 @@ function shuffle(array) {
 
     return array;
 }
+```
