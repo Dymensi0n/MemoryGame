@@ -25,8 +25,24 @@ For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 2. Display the cards to they fit within a grid or table simulating a grid.
 3. 
 
+
+This code puts all cards in an array, which concludes 8 matching pairs.
+
 ```
+let cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
+                    'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt',
+                    'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf',
+                    'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
+
+                    //Generates the cards properties
+function generateCards(card){
+    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+}
+```
+
 // Shuffle function from http://stackoverflow.com/a/2450976
+
+```
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
