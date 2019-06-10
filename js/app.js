@@ -28,17 +28,22 @@ function shuffle(array) {
 
 //Variables
 
-const cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
+let cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
                     'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt',
                     'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf',
                     'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
+
+function generateCards(card){
+    return `<li class="card" card-data="${card}"><i class="fa ${card}"></i></li>`;
+}
+                    
 //Generate cards 
 function newGame(){
     
-    const cardDeck = document.querySelector('.deck');
+    let cardDeck = document.querySelector('.deck');
     
     //This shuffles the cards in the map using the above shuffle function
-    const cardHTML = shuffle(cardList).map(function(card) {
+    let cardHTML = shuffle(cardList).map(function(card) {
         return generateCards(card);
 
     });
@@ -47,46 +52,57 @@ function newGame(){
 
 newGame();
 
-function generateCards(card){
-    return `<li class="card"><i class="fa ${card}"></i></li>`;
-}
-
 //Grab all cards with class '.card'
 const allCards = document.querySelectorAll('.card');
-const openCards = [];
-const cardsMatch = false;
+let openCards = [];
+
+//flips cards to close them
+function closeCards() {
+    setTimeout(function() {
+        openCards.forEach(function(card) {
+            card.classList.remove('open', 'show');
+            console.log('array number ' + openCards.length);
+        });
+        openCards = [];
+    }, 1000);   
+}
 
 //Flips card and shows
     allCards.forEach(function(card) {
         card.addEventListener('click', function(e){
 
             // If cards are open or swoing they will not do anything
-            if (!card.classList.contains('open') || !card.classList.contains('show') || !card.classList.contains('match')) {
+            if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
                 
                 openCards.push(card);
                 card.classList.add('open', 'show');
-                console.log('array number ' + openCards.length);
+                
                 
                 // If more than 2 cards are showing, hide them
-                if (openCards.length === 2) {
+                if (openCards.length == 2) {
+                    if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                        console.log('You found a Macth!');
+                        openCards[0].classList.add('match');
+                        openCards[0].classList.add('open');
+                        openCards[0].classList.add('show');
+
+                        openCards[1].classList.add('match');
+                        openCards[1].classList.add('open');
+                        openCards[1].classList.add('show');
+
+                        openCards = [];
+
+                    } else {
+
                     //Hide Cards
                     closeCards();
+                }
             }
         }
-    })
+    });
 });
 
-//flips cards to close them
-function closeCards() {
-    setTimeout(function() {
-        openCards.forEach(function(card) {
-        
-                card.classList.remove('open', 'show');
-                console.log('array number ' + openCards.length);
-            
-        });
-    }, 1000);   
-}
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
