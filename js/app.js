@@ -37,7 +37,7 @@ function generateCards(card){
                     
 //Starts a new game or initialization 
 function newGame(){
-    
+
     let cardDeck = document.querySelector('.deck');
     
     //This shuffles the cards in the map using the above shuffle function
@@ -56,6 +56,18 @@ const allCards = document.querySelectorAll('.card');
 let openCards = [];
 let playerMoves = document.querySelector('.moves');
 let totalMatches = 0;
+
+let resetButton = document.querySelector('.restart');
+
+
+//Restart button makes a new game and sets moves and total matches to 0
+resetButton.addEventListener('click', function() {
+    console.log('Clicked!');
+    openCards= [];
+    playerMoves.innerText = 0;
+    totalMatches = 0;
+    newGame();
+});
 
 //Hides or closes cards function
 function closeCards() {
