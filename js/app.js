@@ -66,6 +66,7 @@ resetButton.addEventListener('click', function() {
     openCards= [];
     playerMoves.innerText = 0;
     totalMatches = 0;
+
     newGame();
 });
 
