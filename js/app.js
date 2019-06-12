@@ -63,9 +63,15 @@ let resetButton = document.querySelector('.restart');
 //Restart button makes a new game and sets moves and total matches to 0
 resetButton.addEventListener('click', function() {
     console.log('Clicked!');
-    openCards= [];
     playerMoves.innerText = 0;
     totalMatches = 0;
+
+    /*
+    openCards.forEach(function(card) {
+        card.classList.remove('open', 'show', 'match');
+        console.log(card.classList);
+        openCards = [];
+    }); */
 
     newGame();
 });
