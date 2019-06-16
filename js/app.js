@@ -1,3 +1,6 @@
+// Memory Game - v1.01
+// Playable card matching game with 3 Star Score system
+
 // Variables
 const starList = document.querySelector('.stars');
 
@@ -6,6 +9,11 @@ let starGen = document.createElement('li');
 let activateTimer = false;
 
 let cardDeck = document.querySelector('.deck');
+
+let totalTime = document.getElementById('time-clock').innerHTML;
+
+// Set the amount of playerMoves to earn each star. index 0 = 3 Stars, index 1 = 2 star2, and index 2 = 1 star
+const difficultySetting = [22, 26, 30];
 
 
  // Shuffle the list of cards using the provided "shuffle" method below
@@ -25,25 +33,23 @@ function shuffle(array) {
     return array;
 }
 
-//List of cards in an Array
+// List of cards in an Array
 let cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
                     'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt',
                     'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf',
                     'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
 
-                    //Generates the cards properties
+// Generates the cards properties
 function generateCards(card){
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
 
-//This shuffles the cards in the map using the above shuffle function
+// This shuffles the cards in the map using the above shuffle function
 let cardHTML = shuffle(cardList).map(function(card) {
     return generateCards(card);
 });
 
-let totalTime = document.getElementById('time-clock').innerHTML;
-
-//Starts a new game or initialization 
+// Starts a new game or initialization 
 function newGame(){
     starGen.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
     starList.appendChild(starGen);
@@ -56,10 +62,10 @@ function newGame(){
     //console.log(cardList);
 }
 
-//Run the game
+// Run the game
 newGame();
 
-//Grab all cards with class '.card'
+// Grab all cards with class '.card'
 const allCards = document.querySelectorAll('.card');
 
 let openCards = [];
@@ -70,7 +76,7 @@ let totalMatches = 0;
 
 let resetButton = document.querySelector('.restart');
 
-//Restart button makes a new game and sets moves and total matches to 0
+// Restart button makes a new game and sets moves and total matches to 0
 resetButton.addEventListener('click', function() {
     location.reload();
     console.log('Clicked!');
@@ -133,13 +139,13 @@ function starCounter() {
     starGen.innerHTML = '<i class="fa fa-star"></i>';
     starList.appendChild(starGen);
 
-    if (playerMoves.innerText <= 18) {
+    if (playerMoves.innerText <= difficultySetting[0]) {
         starGen.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
         starList.appendChild(starGen);
-    }else if (playerMoves.innerText <= 22) {
+    }else if (playerMoves.innerText <= difficultySetting[1]) {
         starGen.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i>';
         starList.appendChild(starGen);
-    }else if (playerMoves.innerText >=23) {
+    }else if (playerMoves.innerText >= difficultySetting[2]) {
         starGen.innerHTML = '<i class="fa fa-star"></i>';
         starList.appendChild(starGen);
     }
@@ -148,17 +154,16 @@ function starCounter() {
 
 }
 
-//Score using stars
-starTotal = '';
 
+// Player Wins function
 function playerWin() {
     console.log('YOU WON!!!');
     console.log(playerMoves);
-    if (playerMoves.innerText <= 18) {
+    if (playerMoves.innerText <= difficultySetting[0]) {
         alert('Congratulations, you earned 3 STARS!!!');
-    }else if (playerMoves.innerText <= 22) {
+    }else if (playerMoves.innerText <= difficultySetting[1]) {
         alert('Congratulations, you earned 2 STARS!!!');
-    }else if (playerMoves.innerText >=23) {
+    }else if (playerMoves.innerText >= difficultySetting[2]) {
         alert('You earned 1 STAR, please try for a higher score!');
     }
     activateTimer = false;
@@ -208,16 +213,3 @@ function playerWin() {
         }
     });
 });
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
