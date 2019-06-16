@@ -3,13 +3,13 @@
 
 // Variables
 const starList = document.querySelector('.stars');
-
+// Creates an li element
 let starGen = document.createElement('li');
-
+// Timer Boolean, runs when true
 let activateTimer = false;
-
+// Deck class
 let cardDeck = document.querySelector('.deck');
-
+// timer element in HTML
 let totalTime = document.getElementById('time-clock').innerHTML;
 
 // Set the amount of playerMoves to earn each star. index 0 = 3 Stars, index 1 = 2 star2, and index 2 = 1 star
@@ -67,13 +67,13 @@ newGame();
 
 // Grab all cards with class '.card'
 const allCards = document.querySelectorAll('.card');
-
+// Open cards array to keep track of which cards are open, max is 2
 let openCards = [];
-
+// How many moves the player used, could be divided by 2 in a function
 let playerMoves = document.querySelector('.moves');
-
+// how many matches, total is 16
 let totalMatches = 0;
-
+// sets the html class as a clickable reset button
 let resetButton = document.querySelector('.restart');
 
 // Restart button makes a new game and sets moves and total matches to 0
@@ -91,7 +91,7 @@ resetButton.addEventListener('click', function() {
         allCards[i].classList.remove('show');
         activateTimer = true;
     }
-    
+
     newGame();
 });
 
