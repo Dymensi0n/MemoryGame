@@ -1,14 +1,14 @@
-/*
- * Create a list that holds all of your cards
- */
+// Variables
+const starList = document.querySelector('.stars');
+
+let starGen = document.createElement('li');
+
+let activateTimer = false;
+
+let cardDeck = document.querySelector('.deck');
 
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+ // Shuffle the list of cards using the provided "shuffle" method below
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -36,25 +36,24 @@ function generateCards(card){
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
 
-let activateTimer = false;
+//This shuffles the cards in the map using the above shuffle function
+let cardHTML = shuffle(cardList).map(function(card) {
+    return generateCards(card);
+});
 
-let cardDeck = document.querySelector('.deck');
-
-    //This shuffles the cards in the map using the above shuffle function
-    let cardHTML = shuffle(cardList).map(function(card) {
-        return generateCards(card);
-    });
-                  
-    
 let totalTime = document.getElementById('time-clock').innerHTML;
+
 //Starts a new game or initialization 
 function newGame(){
+    starGen.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
+    starList.appendChild(starGen);
+    cardHTML;
 
     document.getElementById('time-clock').innerHTML = 0 + ':' + 0;
 
     cardDeck.innerHTML = cardHTML.join('');
     activateTimer = true;
-    console.log(cardList);
+    //console.log(cardList);
 }
 
 //Run the game
@@ -73,6 +72,7 @@ let resetButton = document.querySelector('.restart');
 
 //Restart button makes a new game and sets moves and total matches to 0
 resetButton.addEventListener('click', function() {
+    location.reload();
     console.log('Clicked!');
     playerMoves.innerText = 0;
     totalMatches = 0;
@@ -83,7 +83,7 @@ resetButton.addEventListener('click', function() {
         allCards[i].classList.remove('match');
         allCards[i].classList.remove('open');
         allCards[i].classList.remove('show');
-        activateTimer = false;
+        activateTimer = true;
     }
 
     
@@ -109,8 +109,8 @@ function gameTimer() {
             if (secsT < 10) secsT = '0' + secsT;
         }
             document.getElementById('time-clock').innerHTML = minsT + ':' + secsT;
-            setTimeout(gameTimer, 500);
-            console.log(totalTime, secsT, minsT);
+            setTimeout(gameTimer, 1000);
+            //console.log(totalTime, secsT, minsT);
     }
 }
 
@@ -127,9 +127,41 @@ function closeCards() {
     }, 500);   
 }
 
+// Star Counter for player Score
+function starCounter() {
+
+    starGen.innerHTML = '<i class="fa fa-star"></i>';
+    starList.appendChild(starGen);
+
+    if (playerMoves.innerText <= 18) {
+        starGen.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
+        starList.appendChild(starGen);
+    }else if (playerMoves.innerText <= 22) {
+        starGen.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i>';
+        starList.appendChild(starGen);
+    }else if (playerMoves.innerText >=23) {
+        starGen.innerHTML = '<i class="fa fa-star"></i>';
+        starList.appendChild(starGen);
+    }
+    console.log(starList);
+    console.log(starGen);
+
+}
+
+//Score using stars
+starTotal = '';
+
 function playerWin() {
     console.log('YOU WON!!!');
-    alert('Congratulations, you found all matching pairs!');
+    console.log(playerMoves);
+    if (playerMoves.innerText <= 18) {
+        alert('Congratulations, you earned 3 STARS!!!');
+    }else if (playerMoves.innerText <= 22) {
+        alert('Congratulations, you earned 2 STARS!!!');
+    }else if (playerMoves.innerText >=23) {
+        alert('You earned 1 STAR, please try for a higher score!');
+    }
+    activateTimer = false;
 }
 
 //Flips card and shows
@@ -143,6 +175,7 @@ function playerWin() {
                 card.classList.add('open', 'show');
                 playerMoves.innerText++;
                 console.log(playerMoves);
+                starCounter();
                 
                 
                 // If more than 2 cards are showing, hide them
