@@ -24,6 +24,7 @@ function shuffle(array) {
 
     return array;
 }
+
 //List of cards in an Array
 let cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
                     'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt',
@@ -34,18 +35,27 @@ let cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-
 function generateCards(card){
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
-                    
-//Starts a new game or initialization 
-function newGame(){
 
-    let cardDeck = document.querySelector('.deck');
-    
+let activateTimer = false;
+
+let cardDeck = document.querySelector('.deck');
+
     //This shuffles the cards in the map using the above shuffle function
     let cardHTML = shuffle(cardList).map(function(card) {
         return generateCards(card);
-
     });
+                  
+    
+let totalTime = document.getElementById('time-clock').innerHTML;
+//Starts a new game or initialization 
+function newGame(){
+
+
+    document.getElementById('time-clock').innerHTML = 0 + ':' + 0;
+
     cardDeck.innerHTML = cardHTML.join('');
+    activateTimer = true;
+    console.log(cardList);
 }
 
 //Run the game
@@ -53,28 +63,59 @@ newGame();
 
 //Grab all cards with class '.card'
 const allCards = document.querySelectorAll('.card');
+
 let openCards = [];
+
 let playerMoves = document.querySelector('.moves');
+
 let totalMatches = 0;
 
 let resetButton = document.querySelector('.restart');
-
 
 //Restart button makes a new game and sets moves and total matches to 0
 resetButton.addEventListener('click', function() {
     console.log('Clicked!');
     playerMoves.innerText = 0;
     totalMatches = 0;
+    cardHTML;
+    openCards = [];
+    // removes all properties of match open and show
+    for (i = 0; i < allCards.length; i++) {
+        allCards[i].classList.remove('match');
+        allCards[i].classList.remove('open');
+        allCards[i].classList.remove('show');
+        activateTimer = false;
+    }
 
-    /*
-    openCards.forEach(function(card) {
-        card.classList.remove('open', 'show', 'match');
-        console.log(card.classList);
-        openCards = [];
-    }); */
-
+    
     newGame();
 });
+
+// Game Timer
+function gameTimer() {
+    
+    if (activateTimer) {
+        let totalTime = document.getElementById('time-clock').innerHTML;
+        let timerSep = totalTime.split(':');
+        let minsT = timerSep[0];
+        let secsT = timerSep[1];
+
+    
+        if (secsT == 59) {
+            minsT++;
+            if (minsT < 10) minsT = '0' + minsT;
+            secsT = 0;
+        }else {
+            secsT++;
+            if (secsT < 10) secsT = '0' + secsT;
+        }
+            document.getElementById('time-clock').innerHTML = minsT + ':' + secsT;
+            setTimeout(gameTimer, 500);
+            console.log(totalTime, secsT, minsT);
+    }
+}
+
+gameTimer();
 
 //Hides or closes cards function
 function closeCards() {
