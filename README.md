@@ -75,7 +75,10 @@ function shuffle(array) {
 }
 ```
 
-// Restart button makes a new game and sets moves and total matches to 0
+Reset button function makes a new game and sets moves and total matches to 0
+```
+location.reload();
+``` is the only way I know of or can find to get the shuffle to restart or else th cards do not function as buttons.
 
 ```
 resetButton.addEventListener('click', function() {
