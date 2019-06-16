@@ -50,7 +50,6 @@ let totalTime = document.getElementById('time-clock').innerHTML;
 //Starts a new game or initialization 
 function newGame(){
 
-
     document.getElementById('time-clock').innerHTML = 0 + ':' + 0;
 
     cardDeck.innerHTML = cardHTML.join('');
