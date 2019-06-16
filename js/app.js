@@ -91,7 +91,6 @@ resetButton.addEventListener('click', function() {
         allCards[i].classList.remove('show');
         activateTimer = true;
     }
-
     
     newGame();
 });

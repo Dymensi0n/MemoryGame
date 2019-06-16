@@ -74,3 +74,25 @@ function shuffle(array) {
     return array;
 }
 ```
+
+// Restart button makes a new game and sets moves and total matches to 0
+
+```
+resetButton.addEventListener('click', function() {
+    location.reload();
+    console.log('Clicked!');
+    playerMoves.innerText = 0;
+    totalMatches = 0;
+    cardHTML;
+    openCards = [];
+    // removes all properties of match open and show
+    for (i = 0; i < allCards.length; i++) {
+        allCards[i].classList.remove('match');
+        allCards[i].classList.remove('open');
+        allCards[i].classList.remove('show');
+        activateTimer = true;
+    }
+    
+    newGame();
+});
+```
