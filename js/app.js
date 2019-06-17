@@ -16,7 +16,7 @@ let totalTime = document.getElementById('time-clock').innerHTML;
 const difficultySetting = [22, 26, 30];
 
 
- // Shuffle the list of cards using the provided "shuffle" method below
+// Shuffle the list of cards using the provided "shuffle" method below
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
